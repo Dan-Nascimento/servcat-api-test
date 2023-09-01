@@ -76,7 +76,7 @@ public interface IdentificationRepository
         "MGMT_CC, \n" +
         "MGMT_HMIC, \n" +
         "ORIGEM \n" +
-        "FROM GENERAL",
+        "FROM GENERAL WHERE ROWNUM<1000",
         nativeQuery = true)
     Page<Identification> getByAllNiin(Pageable pageable);
 

@@ -59,7 +59,7 @@ public class IdentificationController {
     }
     @GetMapping("/all/")
     public ResponseEntity<Page<Identification>> listIdentificationByNiinAll(
-        @RequestParam(value = "page", defaultValue = "1") int page,
+        @RequestParam(value = "page", defaultValue = "0") int page,
         @RequestParam(value = "size", defaultValue = "20") int size
     ) {
         return ResponseEntity.ok(service.findByAllNiin(page, size));
