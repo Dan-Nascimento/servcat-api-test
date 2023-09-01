@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/identifications")
 @Data
@@ -52,37 +50,38 @@ public class IdentificationController {
 
 
     @GetMapping("/id/niin/{niin}")
-    public ResponseEntity<Identification> listIdentificationByNiinId(
-        @PathVariable("niin") String niin
-    ) {
-        return ResponseEntity.ok(service.findByNiinId(niin));
-    }
-
-    @GetMapping("/all/niin/{niin}")
-    public ResponseEntity<Page<Identification>> listIdentificationByNiinAll(
+    public ResponseEntity<Page<Identification>> listIdentificationByNiinId(
         @PathVariable("niin") String niin,
         @RequestParam(value = "page", defaultValue = "0") int page,
         @RequestParam(value = "size", defaultValue = "20") int size
     ) {
-        return ResponseEntity.ok(service.findByAllNiin(niin, page, size));
+        return ResponseEntity.ok(service.findByNiinId(niin, page, size));
+    }
+    @GetMapping("/all/")
+    public ResponseEntity<Page<Identification>> listIdentificationByNiinAll(
+        @RequestParam(value = "page", defaultValue = "1") int page,
+        @RequestParam(value = "size", defaultValue = "20") int size
+    ) {
+        return ResponseEntity.ok(service.findByAllNiin(page, size));
     }
 
-    @GetMapping("/niin/fsc/{niin}{fsc}")
+    @GetMapping("/niinfromfsc/{fsc}")
     public ResponseEntity<Page<Identification>> listIdentificationByNiinFromFsc(
-        @PathVariable("niin, fsc") String niin,
+        @PathVariable("fsc") String fsc,
         @RequestParam(value = "page", defaultValue = "0") int page,
         @RequestParam(value = "size", defaultValue = "20") int size
     ) {
-        return ResponseEntity.ok(service.findByNiinFromFsc(niin, page, size));
+        return ResponseEntity.ok(service.findByNiinFromFsc(fsc, page, size));
     }
 
-
+    @GetMapping("/niinfrominc/{inc}")
     public ResponseEntity<Page<Identification>> listIdentificationByNiinFromInc(
-        @PathVariable("niin, inc") String niin,
+        @PathVariable("inc") String inc,
         @RequestParam(value = "page", defaultValue = "0") int page,
         @RequestParam(value = "size", defaultValue = "20") int size
     ) {
-        return ResponseEntity.ok(service.findByNiinFromInc(niin, page, size));
+        return ResponseEntity.ok(service.findByNiinFromInc(inc, page, size));
     }
+
 
 }

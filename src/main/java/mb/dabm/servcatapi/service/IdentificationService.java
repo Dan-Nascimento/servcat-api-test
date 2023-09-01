@@ -2,15 +2,12 @@ package mb.dabm.servcatapi.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.val;
 import mb.dabm.servcatapi.entity.Identification;
 import mb.dabm.servcatapi.repository.IdentificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Data
@@ -34,20 +31,21 @@ public class IdentificationService {
         return repository.getByNiinLike(niin, PageRequest.of(page, size));
     }
 
-  public Identification findByNiinId(String niin){
-        return repository.getByNiinId(niin);
+  public Page<Identification> findByNiinId(String niin, int page, int size) {
+        return repository.getByNiinId(niin, PageRequest.of(page, size));
   }
 
-  public Page<Identification> findByAllNiin(String niin, int page, int size) {
-        return repository.getByAllNiin(niin, PageRequest.of(page, size));
-  }
+    public Page<Identification> findByAllNiin(int page, int size) {
+        return repository.getByAllNiin(PageRequest.of(page, size));
+    }
 
-  public Page<Identification> findByNiinFromFsc(String niin, int page, int size){
-        return repository.getByNiinFromFsc(niin, PageRequest.of(page, size));
-  }
+    public Page<Identification> findByNiinFromFsc(String fsc, int page, int size) {
+        return repository.getByNiinFromFsc(fsc, PageRequest.of(page, size));
+    }
 
-  public Page<Identification> findByNiinFromInc(String niin, int page, int size) {
-        return repository.getByNiinFromInc(niin, PageRequest.of(page, size));
-  }
+    public Page<Identification> findByNiinFromInc(String inc, int page, int size) {
+        return repository.getByNiinFromInc(inc, PageRequest.of(page, size));
+    }
+
 
 }
